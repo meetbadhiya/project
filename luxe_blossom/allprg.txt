@@ -1,0 +1,782 @@
+all prg j2ee 
+// cityselect_data
+package cityselect_data;
+import java.sql.*;
+
+public class Cityselect_data 
+{
+
+    
+    public static void main(String[] args) 
+    {
+        try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="select max(salary)from emp ";
+          Statement st=con.createStatement();
+          ResultSet rs=st.executeQuery(query);
+          
+          while(rs.next())
+          {
+              System.out.println("empno:"+rs.getInt(1));
+              System.out.println("name:"+rs.getString(2));
+              System.out.println("designation:"+rs.getString(3));
+              System.out.println("city:"+rs.getString(4));
+              System.out.println("salary:"+rs.getInt(5));
+              System.out.println("deparment:"+rs.getString(6));
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      } 
+    }
+    
+}
+
+//dnamic_delete 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dnamic_delete;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Dnamic_delete 
+{
+
+    
+    public static void main(String[] args) 
+    {
+         try
+      {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        
+        Scanner sc= new Scanner(System.in);
+        
+        
+        
+        //with preparedstatement delete
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root","");
+        String query ="delete from student where rollno=?";
+        PreparedStatement pst=con.prepareStatement(query);
+        
+        System.out.println("Enter to rollno:");
+        int roll=sc.nextInt();
+        
+        
+      
+         
+        
+         pst.setInt(1,roll);
+         
+         pst.executeUpdate();
+         System.out.println("delete");
+        
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println("sorry"+e);
+        
+        }
+    }
+    
+}
+
+//dnamic_update 
+
+
+package dnamic_update;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Dnamic_update
+{
+
+    
+    public static void main(String[] args) 
+    {
+         try
+      {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        
+        Scanner sc= new Scanner(System.in);
+        
+        
+        
+        //with preparedstatement update
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root","");
+        String query ="update student set firstname=?,lastname=?,course=?,semester=? where rollno=?";
+        PreparedStatement pst=con.prepareStatement(query);
+        
+        System.out.println("Enter to rollno:");
+        int roll=sc.nextInt();
+        System.out.println("Enter to first name:");
+        String first =sc.next();
+        System.out.println("Enter to last name:");
+        String last =sc.next();
+        System.out.println("Enter to course:");
+        String course =sc.next();
+        System.out.println("Enter to semester:");
+        String sem =sc.next();
+        
+      
+         
+         pst.setString(1, first);
+         pst.setString(2, last);
+         pst.setString(3, course);
+         pst.setString(4, sem);
+         pst.setInt(5,roll);
+         
+         pst.executeUpdate();
+         System.out.println("update");
+        
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println("sorry"+e);
+        
+        }
+    }
+    
+}
+
+//dnamic department\
+
+package dynamic_deparment;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Dynamic_deparment 
+{
+
+    
+    public static void main(String[] args) 
+    {
+         try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          Scanner sc=new Scanner(System.in);
+          System.out.println("Enter the deparment:");
+          String  user=sc.next();
+          
+          String query="select *from emp where department = ?";
+          PreparedStatement pst =con.prepareStatement(query);
+          pst.setString(1,user);
+          ResultSet rs=pst.executeQuery();
+          
+          while(rs.next())
+          {
+              //System.out.println("empno:"+rs.getInt(1));
+              System.out.println("empnm:"+rs.getString(2));
+              System.out.println("designation:"+rs.getString(3));
+             // System.out.println("city:"+rs.getString(4));
+             // System.out.println("salary:"+rs.getInt(5));
+              System.out.println("deparment:"+rs.getString(6));
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      } 
+    }
+    
+}
+
+// dynammic_select 
+
+package dynamic_select;
+
+import java.sql.*;
+import java.util.Scanner;
+
+
+
+
+public class Dynamic_select 
+{
+
+    
+    public static void main(String[] args) 
+    {
+         try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stud_empdb","root",""); //url,username,password
+          
+          Scanner sc=new Scanner(System.in);
+          System.out.println("Enter the id number:");
+          int user=sc.nextInt();
+          String query="select *from emp where empno = ?";
+          PreparedStatement pst =con.prepareStatement(query);
+          pst.setInt(1,user);
+          ResultSet rs=pst.executeQuery();
+          
+          while(rs.next())
+          {
+              System.out.println("empno:"+rs.getInt(1));
+              System.out.println("name:"+rs.getString(2));
+              System.out.println("designation:"+rs.getString(3));
+              System.out.println("city:"+rs.getString(4));
+              System.out.println("salary:"+rs.getInt(5));
+              System.out.println("deparment:"+rs.getString(6));
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      } 
+    }
+    
+}
+
+// dynamicinsert_stud 
+
+
+package dynamicinsert_stud;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Dynamicinsert_stud 
+{
+
+    
+    public static void main(String[] args)
+    {
+        try
+      {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        
+        Scanner sc= new Scanner(System.in);
+        
+        System.out.println("Enter to rollno:");
+        int roll=sc.nextInt();
+        System.out.println("Enter to first name:");
+        String first =sc.next();
+        System.out.println("Enter to last name:");
+        String last =sc.next();
+        System.out.println("Enter to course:");
+        String course =sc.next();
+        System.out.println("Enter to semester:");
+        String sem =sc.next();
+        
+        
+        //with preparedstatement insert 
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root","");
+        String query ="insert into student(rollno,firstname,lastname,course,semester) values (?,?,?,?,?)";
+        PreparedStatement pst=con.prepareStatement(query);
+      
+         pst.setInt(1,roll);
+         pst.setString(2, first);
+         pst.setString(3, last);
+         pst.setString(4, course);
+         pst.setString(5, sem);
+         
+         pst.executeUpdate();
+         System.out.println("insert");
+        
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println("sorry"+e);
+        
+    }
+    
+}
+}
+
+// dynamicupdate
+
+
+package dynmicupdate_stud;
+import java.sql.*;
+import java.util.Scanner;
+
+
+public class Dynmicupdate_stud 
+{
+
+    
+    public static void main(String[] args) 
+    {
+        try
+      {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        
+        Scanner sc= new Scanner(System.in);
+        
+        
+        
+        //with preparedstatement update
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root","");
+        String query ="update student set firstname=?,lastname=?,course=?,semester=? where rollno=?";
+        PreparedStatement pst=con.prepareStatement(query);
+        
+        System.out.println("Enter to rollno:");
+        int roll=sc.nextInt();
+        System.out.println("Enter to first name:");
+        String first =sc.next();
+        System.out.println("Enter to last name:");
+        String last =sc.next();
+        System.out.println("Enter to course:");
+        String course =sc.next();
+        System.out.println("Enter to semester:");
+        String sem =sc.next();
+        
+      
+         
+         pst.setString(1, first);
+         pst.setString(2, last);
+         pst.setString(3, course);
+         pst.setString(4, sem);
+         pst.setInt(5,roll);
+         
+         pst.executeUpdate();
+         System.out.println("update");
+        
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println("sorry"+e);
+        
+        }
+    }
+    
+}
+
+// insertdata_emp
+
+package insertdata_emp;
+import java.sql.*;
+
+public class Insertdata_emp 
+{
+
+    
+    public static void main(String[] args) 
+    {
+      try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="insert into emp(empnm,designation,city,salary,department)values('vishal','employee','amreli',50000,'Branch-2')";
+          Statement st=con.createStatement();
+          st.executeUpdate(query);
+          
+          System.out.println("insert");
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }
+      
+    }
+    
+}
+
+
+// insertcollablestatement
+
+
+package insertcallable_default;
+import java.sql.*;
+
+public class Insertcallable_default 
+{
+
+    
+    public static void main(String[] args) 
+    {
+        try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="{call insert_default()}";
+         CallableStatement cst=con.prepareCall(query);
+         cst.executeUpdate();
+          
+          System.out.println("insert");
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }
+    }
+    
+}
+
+// insert_withparameter
+
+package inset_withparameter;
+import java.sql.*;
+
+public class Inset_withparameter 
+{
+
+    
+    public static void main(String[] args) 
+    {
+        try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="{call insertdynamic_data(?,?,?,?,?)}";
+         CallableStatement cst=con.prepareCall(query);
+         cst.setString("p_name","ram");
+         cst.setString("p_designation","webdeveloper");
+         cst.setString("p_city","surat");
+         cst.setInt("p_salary",85000); 
+         cst.setString("p_deparment","IT");
+         
+         
+         
+         cst.executeUpdate();
+          
+          System.out.println("insert");
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }
+    }
+    
+}
+
+// metadata
+
+
+package metadata1;
+import java.sql.*;
+
+public class Metadata1 
+{
+
+    
+    public static void main(String[] args)
+    {
+        try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          DatabaseMetaData dmd=con.getMetaData();
+          
+          System.out.println("DRIVER NAME:"+dmd.getDriverName());
+          System.out.println("URL NAME:"+dmd.getURL());
+          System.out.println("VERSION NAME:"+dmd.getDriverVersion());
+          System.out.println("DATABASE PRODUCT NAME:"+dmd.getDatabaseProductName());
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }   
+    }
+    
+}
+
+// nameselect_data 
+
+
+package nameselsect_data;
+import java.sql.*;
+
+public class Nameselsect_data {
+
+    
+    public static void main(String[] args)
+    {
+        
+         try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="select *from emp where empnm LIKE 'a%'";
+          Statement st=con.createStatement();
+          ResultSet rs=st.executeQuery(query);
+          
+          while(rs.next())
+          {
+              System.out.println("empno:"+rs.getInt(1));
+              System.out.println("name:"+rs.getString(2));
+              System.out.println("designation:"+rs.getString(3));
+              System.out.println("city:"+rs.getString(4));
+              System.out.println("salary:"+rs.getInt(5));
+              System.out.println("deparment:"+rs.getString(6));
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      } 
+    }
+ }
+
+
+//  prg-19
+
+
+package product19;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Product19 
+{
+
+    
+    public static void main(String[] args) 
+    {
+        
+        Scanner sc=new Scanner(System.in);
+        System.out.println("1. insert data");
+        System.out.println("2. update data");
+        System.out.println("3. delete  data");
+        System.out.println("4. select data");
+        
+        System.out.println("Enter the choice:");
+        int choice=sc.nextInt();
+        
+        
+        switch(choice)
+        {
+            case 1:
+                try
+                     {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+                             String query="insert into product values(101,'beg',250,15)";
+                             Statement st=con.createStatement();
+                             st.executeUpdate(query);
+          
+                             System.out.println("insert");
+          
+                      }
+                      catch(Exception e)
+                      {
+                           System.out.println("welcome"+e);
+                      }
+            case 2:
+                try
+                     {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stud_empdb","root",""); //url,username,password
+          
+                             String query="update product set productname='boll',price=50,qulity=20 where pid=1";
+                             Statement st=con.createStatement();
+                             st.executeUpdate(query);
+          
+                             System.out.println("update");
+          
+                      }
+                      catch(Exception e)
+                      {
+                           System.out.println("welcome"+e);
+                      }
+            case 3:
+                try
+                     {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stud_empdb","root",""); //url,username,password
+          
+                             String query="delete from product where pid=1";
+                             Statement st=con.createStatement();
+                             st.executeUpdate(query);
+          
+                             System.out.println("delete");
+          
+                      }
+                      catch(Exception e)
+                      {
+                           System.out.println("welcome"+e);
+                      }
+                case 4:
+                try
+                     {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stud_empdb","root",""); //url,username,password
+          
+                             String query="select *from product";
+                             Statement st=con.createStatement();
+                            ResultSet rs= st.executeQuery(query);
+          
+                             while(rs.next())
+                            {
+                                    System.out.println("pid:"+rs.getInt(1));
+                                     System.out.println("productname:"+rs.getString(2));
+                                    System.out.println("price:"+rs.getInt(3));
+                                     System.out.println("qulity:"+rs.getInt(4));
+                                    
+                            }
+          
+                      }
+                      catch(Exception e)
+                      {
+                           System.out.println("welcome"+e);
+                      }
+                default:
+                {
+                    System.out.println("enter to porpur choice choose:");
+                }
+        }
+        
+    }
+    
+}
+
+// salary _data 
+
+
+package salary_data;
+import java.sql.*;
+
+public class Salary_data
+{
+
+    
+    public static void main(String[] args) 
+    {
+        try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="select  count(*)from emp ";
+          Statement st=con.createStatement();
+          ResultSet rs=st.executeQuery(query);
+          
+          while(rs.next())
+          {
+              System.out.println("empno:"+rs.getInt(1));
+            // System.out.println("name:"+rs.getString(2));
+//              System.out.println("designation:"+rs.getString(3));
+//              System.out.println("city:"+rs.getString(4));
+             // System.out.println("salary:"+rs.getInt(5));
+             //System.out.println("deparment:"+rs.getString(6));
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }   
+    }
+    
+}
+
+
+// select_desganation 
+
+
+package select_designation;
+import java.sql.*;
+
+public class Select_designation
+{
+
+    
+    public static void main(String[] args)
+    {
+        try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stud_empdb","root",""); //url,username,password
+          
+          String query="{call select_designation1(?)}";
+         CallableStatement cst=con.prepareCall(query);
+         cst.setInt("p_number", 6);
+          ResultSet rs=cst.executeQuery(query);
+          
+          while(rs.next())
+          {
+              
+              System.out.println("designation:"+rs.getString("designation"));
+              
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }   
+    }
+    
+}
+
+// select callable 
+
+
+package selectall_callable;
+import java.sql.*;
+
+public class Selectall_callable 
+{
+
+    
+    public static void main(String[] args) 
+    {
+         try
+      {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/emppmb","root",""); //url,username,password
+          
+          String query="{call select_data(?)}";
+         CallableStatement cst=con.prepareCall(query);
+         cst.setString("p_designation", "Account");
+          ResultSet rs=cst.executeQuery(query);
+          
+          while(rs.next())
+          {
+              
+               System.out.println("empno:"+rs.getInt(1));
+              System.out.println("name:"+rs.getString(2));
+              System.out.println("designation:"+rs.getString(3));
+              System.out.println("city:"+rs.getString(4));
+              System.out.println("salary:"+rs.getInt(5));
+              System.out.println("deparment:"+rs.getString(6));
+              
+          }
+          
+          
+      }
+      catch(Exception e)
+      {
+          System.out.println("welcome"+e);
+      }   
+    }
+    
+}
+
+
